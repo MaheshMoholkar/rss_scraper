@@ -37,6 +37,10 @@ func main() {
 		log.Fatal("Database connection failed!")
 	}
 
+	apiConfig := apiConfig{
+		DB: database.New(conn),
+	}
+
 	router := chi.NewRouter()
 
 	router.Use(cors.Handler(cors.Options{
@@ -49,8 +53,10 @@ func main() {
 	}))
 
 	v1Router := chi.NewRouter()
-	v1Router.HandleFunc("/healthz", handlerReadiness)
-	v1Router.HandleFunc("/error", handlerError)
+	v1Router.Get("/healthz", handlerReadiness)
+	v1Router.Get("/error", handlerError)
+	v1Router.Post("/users", apiConfig.handlerCreateUser)
+	v1Router.Get("/user", apiConfig.handlerGetUser)
 
 	router.Mount("/v1", v1Router)
 
