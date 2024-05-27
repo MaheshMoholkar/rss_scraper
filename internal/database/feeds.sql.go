@@ -11,7 +11,6 @@ import (
 )
 
 const createFeed = `-- name: CreateFeed :one
-
 INSERT INTO feeds(created_at, updated_at, name, url, user_id)
 VALUES ($1, $2, $3, $4, $5)
 RETURNING id, created_at, updated_at, name, url, user_id
@@ -46,7 +45,6 @@ func (q *Queries) CreateFeed(ctx context.Context, arg CreateFeedParams) (Feed, e
 }
 
 const getFeeds = `-- name: GetFeeds :many
-
 SELECT id, created_at, updated_at, name, url, user_id FROM feeds
 `
 
