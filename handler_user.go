@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/MaheshMoholkar/rss_scraper/internal/auth"
 	"github.com/MaheshMoholkar/rss_scraper/internal/database"
 )
 
@@ -36,17 +35,6 @@ func (apiConfig *apiConfig) handlerCreateUser(w http.ResponseWriter, r *http.Req
 	responseWithJSON(w, 201, databaseUserToUser(user))
 }
 
-func (apiCfg *apiConfig) handlerGetUser(w http.ResponseWriter, r *http.Request) {
-	apiKey, err := auth.GetAPIKey(r.Header)
-	if err != nil {
-		responseWithError(w, 403, fmt.Sprintf("Auth error:%v", err))
-		return
-	}
-
-	user, err := apiCfg.DB.GetUserByAPIKEY(r.Context(), apiKey)
-	if err != nil {
-		responseWithError(w, 400, fmt.Sprintf("Unable to fetch user: %v", err))
-	}
-
+func (cfg *apiConfig) handlerGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
 	responseWithJSON(w, 200, databaseUserToUser(user))
 }
