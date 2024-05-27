@@ -1,5 +1,4 @@
 -- +goose Up
-
 CREATE TABLE feeds(
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
@@ -10,5 +9,4 @@ CREATE TABLE feeds(
 );
 
 -- +goose Down
-
 DROP TABLE feeds;

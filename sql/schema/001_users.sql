@@ -1,5 +1,4 @@
 -- +goose Up
-
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
@@ -8,5 +7,4 @@ CREATE TABLE users (
 );
 
 -- +goose Down
-
 DROP TABLE users;
